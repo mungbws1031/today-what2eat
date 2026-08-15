@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
 <title>오늘뭐먹지 · 아이 사먹기 메뉴 추천</title>
-<meta name="theme-color" content="#F2722B" />
+<meta name="theme-color" content="#FF4B3E" />
 <meta name="description" content="쿠팡·이마트·배달 브랜드에서 아이 사먹일 메뉴 고르기" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -15,15 +15,14 @@
 <link rel="icon" href="./icon-192.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Noto+Sans+KR:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --bg-base:#F4EEE3; --bg-frame:#FFFCF6; --surface:#FBF5EC; --surface2:#F1E9DB; --border:#E6DCCB;
-    --text:#2B2620; --muted:#7C7060; --faint:#A39684;
-    --gold:#D99A00; --chef-brown:#B06A22; --accent:#F2722B; --accent-soft:rgba(242,114,43,.12);
-    --t-spicy:#D6002F;
-    --warn:#C98A1E; --danger:#D6483C; --track:#ECE3D4; --shadow:rgba(90,70,35,.18);
-    --display:'Fraunces',serif; --body:'Noto Sans KR',sans-serif; --mono:'Space Mono',monospace;
+    --bg-base:#F1F2F7; --bg-frame:#FFFFFF; --surface:#FFFFFF; --surface2:#F1F2F7; --border:#ECEDF3;
+    --text:#181A23; --muted:#6B6F80; --faint:#A3A6B5;
+    --accent:#FF4B3E; --accent2:#FFC93C; --accent-soft:rgba(255,75,62,.10);
+    --good:#19C37D; --warn:#FF9E1B; --danger:#FF3B3B; --track:#E9EAF1; --shadow:rgba(24,26,35,.10);
+    --display:'Jua',sans-serif; --body:'Noto Sans KR',sans-serif;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html{-webkit-text-size-adjust:100%}
@@ -37,71 +36,79 @@
     padding-bottom:env(safe-area-inset-bottom);animation:pop .22s ease;
   }
   @media (min-width:480px){
-    body{display:flex;justify-content:center;align-items:flex-start;padding:20px 12px}
-    .frame{max-width:400px;min-height:0;border-radius:28px;border:1px solid var(--border);
-      box-shadow:0 24px 60px -24px var(--shadow);position:relative}
+    body{display:flex;justify-content:center;align-items:flex-start;padding:20px 12px;background:var(--bg-base)}
+    .frame{max-width:400px;min-height:0;border-radius:28px;
+      box-shadow:0 24px 60px -20px var(--shadow);position:relative}
   }
 
   /* 공용 헤더 */
-  .hd{padding:calc(env(safe-area-inset-top) + 18px) 20px 14px;border-bottom:1px solid var(--border);position:relative}
-  .hd .kicker{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--faint);text-transform:uppercase}
-  .hd .row{display:flex;align-items:center;gap:11px;margin-top:9px}
-  .avatar{width:38px;height:38px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#C77B3C,#7A4A22);
-    display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:18px;color:#FFF3E4}
-  .hd .name{font-family:var(--display);font-size:19px;font-weight:600;line-height:1.1}
-  .hd .sub{font-size:11px;color:var(--muted)}
+  .hd{padding:calc(env(safe-area-inset-top) + 20px) 20px 18px;position:relative;
+    background:linear-gradient(135deg,var(--accent),#FF7A3D)}
+  .hd .kicker{display:inline-flex;font-size:11px;font-weight:800;letter-spacing:.3px;color:#fff;
+    background:rgba(255,255,255,.22);padding:4px 11px;border-radius:999px}
+  .hd .row{display:flex;align-items:center;gap:12px;margin-top:12px}
+  .avatar{width:46px;height:46px;border-radius:16px;flex-shrink:0;background:rgba(255,255,255,.94);
+    display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 6px 14px -4px rgba(0,0,0,.25)}
+  .hd .name{font-family:var(--display);font-size:24px;font-weight:400;line-height:1.15;color:#fff;letter-spacing:.3px}
+  .hd .sub{font-size:12px;color:rgba(255,255,255,.85);margin-top:1px}
 
-  .chips{display:flex;flex-wrap:wrap;gap:7px}
-  .chip{font-size:12.5px;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--border);
-    border-radius:999px;padding:9px 13px;cursor:pointer;transition:.15s;min-height:38px;display:inline-flex;align-items:center}
-  .chip:active{transform:scale(.95)}
-  .chip.on{color:#1a130c;background:var(--accent);border-color:var(--accent)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-size:13px;font-weight:800;color:var(--muted);background:var(--surface);border:none;
+    border-radius:999px;padding:9px 14px;cursor:pointer;transition:.15s;min-height:38px;display:inline-flex;align-items:center;
+    box-shadow:0 2px 8px -2px rgba(24,26,35,.12)}
+  .chip:active{transform:scale(.94)}
+  .chip.on{color:#fff;background:var(--text);box-shadow:0 4px 10px -2px rgba(24,26,35,.35)}
 
   .empty{text-align:center;color:var(--faint);font-size:13px;padding:50px 20px;line-height:1.7}
 
-  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;background:var(--track);border-radius:99px;cursor:pointer;touch-action:none}
-  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--text);box-shadow:0 1px 5px rgba(90,70,35,.3)}
-  input[type=range]::-moz-range-thumb{width:26px;height:26px;border:none;border-radius:50%;background:var(--text);box-shadow:0 1px 5px rgba(90,70,35,.3)}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;background:var(--track);border-radius:99px;cursor:pointer;touch-action:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--accent);border:3px solid #fff;box-shadow:0 2px 8px rgba(255,75,62,.5)}
+  input[type=range]::-moz-range-thumb{width:26px;height:26px;border:3px solid #fff;border-radius:50%;background:var(--accent);box-shadow:0 2px 8px rgba(255,75,62,.5)}
 
   /* ── 사먹기 ── */
-  .buybar{padding:2px 16px 10px}
-  .buybar .lab{font-family:var(--mono);font-size:10px;letter-spacing:1.4px;color:var(--faint);text-transform:uppercase;margin:10px 0 8px}
+  .buybar{padding:16px 16px 6px}
+  .buybar .lab{font-family:var(--display);font-size:14px;color:var(--text);margin:14px 0 9px;font-weight:400}
   .buybar .lab:first-child{margin-top:2px}
   .buyspicy{display:flex;align-items:center;gap:10px;margin-top:4px}
   .buyspicy input[type=range]{flex:1}
-  .buyspicy .bsval{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--t-spicy);min-width:26px;text-align:right}
-  .buyroll{width:100%;margin-top:14px;font-weight:800;font-size:14px;color:#1a130c;background:var(--accent);
-    border:none;border-radius:13px;padding:13px;cursor:pointer}
-  .buyroll:active{transform:scale(.98)}
-  .buypick{margin:12px 16px;padding:16px;border-radius:16px;background:linear-gradient(135deg,var(--accent-soft),var(--surface));
-    border:1.5px solid var(--accent);text-align:center}
-  .buypick .bpem{font-size:38px;line-height:1}
-  .buypick .bpn{font-size:17px;font-weight:800;color:var(--text);margin-top:4px}
-  .buypick .bpmeta{font-size:12px;color:var(--muted);margin-top:3px}
-  .buylist{padding:4px 16px 16px}
-  .buycard{border:1px solid var(--border);border-radius:14px;background:var(--surface);padding:12px 13px;margin-bottom:9px}
-  .buycard .bch{display:flex;align-items:flex-start;gap:10px}
-  .buycard .bcem{font-size:24px;line-height:1.2}
-  .buycard .bcn{flex:1;font-weight:700;font-size:14px;color:var(--text)}
-  .buycard .bcbrand{font-weight:500;font-size:11.5px;color:var(--faint);margin-top:1px}
-  .buycard .bcnote{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.4}
-  .buycard .bcfav{background:none;border:none;font-size:16px;cursor:pointer;padding:2px}
-  .buycard .bctags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
-  .buycard .bctags span{font-size:10.5px;font-weight:700;padding:2.5px 8px;border-radius:999px;background:var(--surface2);border:1px solid var(--border);color:var(--muted)}
-  .buycard .spicy0{color:#3F8F4F}.buycard .spicy1{color:var(--warn)}.buycard .spicy2{color:var(--danger)}
-  .buycard .bcgo{display:flex;gap:8px;margin-top:10px}
-  .buycard .bcgo a{flex:1;text-align:center;text-decoration:none;font-size:12px;font-weight:700;color:var(--text);
-    background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:8px 6px}
-  .buycard .bcgo a:active{transform:scale(.97)}
+  .buyspicy .bsval{font-family:var(--display);font-size:16px;font-weight:400;color:var(--accent);min-width:24px;text-align:right}
+  .buyroll{width:100%;margin-top:16px;font-family:var(--display);font-weight:400;font-size:17px;letter-spacing:.3px;color:#fff;
+    background:linear-gradient(135deg,var(--accent),#FF7A3D);border:none;border-radius:999px;padding:15px;cursor:pointer;
+    box-shadow:0 8px 20px -6px rgba(255,75,62,.55)}
+  .buyroll:active{transform:scale(.97)}
+  .buypick{margin:14px 16px;padding:20px;border-radius:20px;background:linear-gradient(135deg,var(--accent2),#FFB13C);
+    text-align:center;box-shadow:0 10px 24px -10px rgba(255,158,27,.6);animation:pop .25s ease}
+  .buypick .bpem{font-size:42px;line-height:1}
+  .buypick .bpn{font-family:var(--display);font-size:20px;font-weight:400;color:#181A23;margin-top:6px}
+  .buypick .bpmeta{font-size:12px;font-weight:700;color:#5b4404;margin-top:3px;opacity:.85}
+  .buylist{padding:6px 16px 20px}
+  .buycard{border:none;border-radius:20px;background:var(--surface);padding:14px;margin-bottom:12px;
+    box-shadow:0 3px 14px -4px rgba(24,26,35,.10)}
+  .buycard .bch{display:flex;align-items:flex-start;gap:11px}
+  .buycard .bcem{font-size:28px;line-height:1.15;width:44px;height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+    background:var(--surface2);border-radius:14px}
+  .buycard .bcn{flex:1;font-weight:800;font-size:14.5px;color:var(--text);padding-top:2px}
+  .buycard .bcbrand{font-weight:600;font-size:11.5px;color:var(--faint);margin-top:2px}
+  .buycard .bcnote{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.45}
+  .buycard .bcfav{background:none;border:none;font-size:18px;cursor:pointer;padding:2px}
+  .buycard .bctags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .buycard .bctags span{font-size:10.5px;font-weight:800;padding:4px 10px;border-radius:999px;background:var(--surface2);color:var(--muted)}
+  .buycard .spicy0{background:rgba(25,195,125,.14);color:#0F9D63}
+  .buycard .spicy1{background:rgba(255,158,27,.15);color:#C9720A}
+  .buycard .spicy2{background:rgba(255,59,59,.14);color:var(--danger)}
+  .buycard .bcgo{display:flex;gap:8px;margin-top:12px}
+  .buycard .bcgo a{flex:1;text-align:center;text-decoration:none;font-size:12.5px;font-weight:800;color:#fff;
+    background:var(--text);border:none;border-radius:999px;padding:10px 6px}
+  .buycard .bcgo a:active{transform:scale(.96)}
 </style>
 </head>
 <body>
 <div class="frame" id="frame">
   <section id="view-buy">
     <div class="hd">
-      <div class="kicker">Kids Takeout · 사먹는 메뉴</div>
+      <div class="kicker">🛍️ KIDS TAKEOUT</div>
       <div class="row">
-        <div class="avatar" style="background:linear-gradient(135deg,#F2722B,#B06A22)">🛍️</div>
+        <div class="avatar">🍽️</div>
         <div><div class="name">오늘뭐먹지</div><div class="sub">쿠팡·이마트·배달에서 아이 메뉴 고르기</div></div>
       </div>
     </div>
